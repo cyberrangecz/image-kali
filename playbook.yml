@@ -1,0 +1,22 @@
+- name: Hello world
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Wait for connection
+      wait_for_connection:
+        timeout: 600
+
+    - name: Gather facts
+      setup:
+
+    - name: Gather services facts
+      service_facts:
+  
+    - name: Print hello world
+      debug:
+        msg: "Hello World"
+
+    - name: Check that chrony is running
+      assert:
+        that:
+          - ansible_facts.services.chrony.state == "running"
