@@ -18,6 +18,10 @@ There are two user accounts:
 
 Ansible package is installed to support Vagrant Ansible Local provisioner.
 
+## How to build
+
+For information how to build this image see [wiki](https://gitlab.ics.muni.cz/muni-kypo-images/muni-kypo-images-wiki/-/wikis/How-to-build-an-image-locally).
+
 ## Known issues and requested features
 
 See [issues](https://gitlab.ics.muni.cz/muni-kypo-images/kali/-/issues).
