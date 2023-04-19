@@ -1,5 +1,11 @@
 # Changelog
 
+## [qemu-0.1.2] - 2023-04-19
+### Changed
+- Update Kali version to 2023.1
+### Fixed
+- Screen no longer locks after inactivity
+
 ## [qemu-0.1.1], [vbox-0.1.1] - 2022-05-16
 ### Changed
 - Update kali version
@@ -14,3 +20,4 @@
 [vbox-0.1.0]: https://gitlab.ics.muni.cz/muni-kypo-images/kali/-/tree/vbox-0.1.0
 [qemu-0.1.1]: https://gitlab.ics.muni.cz/muni-kypo-images/kali/-/tree/qemu-0.1.1
 [vbox-0.1.1]: https://gitlab.ics.muni.cz/muni-kypo-images/kali/-/tree/vbox-0.1.1
+[qemu-0.1.2]: https://gitlab.ics.muni.cz/muni-kypo-images/kali/-/tree/qemu-0.1.2
