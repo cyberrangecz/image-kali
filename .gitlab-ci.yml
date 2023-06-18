@@ -7,3 +7,28 @@ variables:
   TYPE: "linux"
   DISTRO: "debian"
   GUI_ACCESS: "true"
+  TF_ROOT: ${CI_PROJECT_DIR}
+  TF_STATE_NAME: default
+  TF_VAR_NAME: ${NAME}
+  TF_VAR_TYPE: ${TYPE}
+  TF_VAR_DISTRO: ${DISTRO}
+  TF_VAR_GUI_ACCESS: ${GUI_ACCESS}
+  TF_VAR_ACCESS_TOKEN: ${ACCESS_TOKEN}
+  TF_VAR_CI_SERVER_HOST: ${CI_SERVER_HOST}
+
+test-qemu:
+  tags: []
+  image: registry.gitlab.com/gitlab-org/terraform-images/releases/1.4:v1.0.0
+  script:
+    - gitlab-terraform plan
+    - gitlab-terraform apply
+  resource_group: ${TF_STATE_NAME}
+  cache:
+    key: "${TF_ROOT}"
+    paths:
+      - ${TF_ROOT}/.terraform/
+  artifacts:
+    paths:
+      - ${TF_ROOT}/user-ansible.txt
+      - ${TF_ROOT}/networking-ansible.txt
+      - ${TF_ROOT}/terraform.txt
