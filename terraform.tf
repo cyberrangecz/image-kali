@@ -148,13 +148,13 @@ resource "local_file" "terraform-output" {
 
 resource "null_resource" "check" {
   triggers = {
-    stages = join(",", kypo_sandbox_allocation_unit.sandbox.allocation_request.stages)
+    stages = join(", ", kypo_sandbox_allocation_unit.sandbox.allocation_request.stages)
 
   }
 
   lifecycle {
     postcondition {
-      condition     = join(",", kypo_sandbox_allocation_unit.sandbox.allocation_request.stages) == "FINISHED, FINISHED, FINISHED"
+      condition     = join(", ", kypo_sandbox_allocation_unit.sandbox.allocation_request.stages) == "FINISHED, FINISHED, FINISHED"
       error_message = "Allocation has finished with errors"
     }
   }
