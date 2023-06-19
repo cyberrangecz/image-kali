@@ -4,7 +4,7 @@ terraform {
 
   required_providers {
     kypo = {
-      source = "vydrazde/kypo"
+      source  = "vydrazde/kypo"
       version = "0.1.0-beta"
     }
     openstack = {
@@ -12,7 +12,7 @@ terraform {
       version = "~> 1.48.0"
     }
     gitlab = {
-      source = "gitlabhq/gitlab"
+      source  = "gitlabhq/gitlab"
       version = "16.0.3"
     }
   }
@@ -24,13 +24,13 @@ provider "kypo" {
 }
 
 provider "openstack" {
-  auth_url    = "https://identity.cloud.muni.cz/v3"
-  region      = "brno1"
+  auth_url = "https://identity.cloud.muni.cz/v3"
+  region   = "brno1"
 }
 
 provider "gitlab" {
   base_url = "https://${var.CI_SERVER_HOST}/api/v4"
-  token = var.ACCESS_TOKEN
+  token    = var.ACCESS_TOKEN
 }
 
 variable "CI_PROJECT_ID" {}
@@ -88,11 +88,11 @@ resource "null_resource" "git_commit" {
       git push https://root:${var.ACCESS_TOKEN}@${var.CI_SERVER_HOST}/${var.CI_PROJECT_PATH}.git ${gitlab_branch.gitlab_branch.name}
     EOT
   }
-
-  depends_on = [
-    local_file.topology,
-    gitlab_branch.gitlab_branch
-  ]
+  
+  triggers = {
+    topology      = local_file.topology.content_sha256
+    gitlab_branch = gitlab_branch.gitlab_branch.name
+  }
 }
 
 resource "kypo_sandbox_definition" "definition" {
@@ -113,7 +113,7 @@ resource "kypo_sandbox_pool" "pool" {
 }
 
 resource "kypo_sandbox_allocation_unit" "sandbox" {
-  pool_id = kypo_sandbox_pool.pool.id
+  pool_id                       = kypo_sandbox_pool.pool.id
   warning_on_allocation_failure = true
 }
 
@@ -122,12 +122,12 @@ data "kypo_sandbox_request_output" "user-output" {
 }
 
 data "kypo_sandbox_request_output" "networking-output" {
-  id = kypo_sandbox_allocation_unit.sandbox.allocation_request.id
+  id    = kypo_sandbox_allocation_unit.sandbox.allocation_request.id
   stage = "networking-ansible"
 }
 
 data "kypo_sandbox_request_output" "terraform-output" {
-  id = kypo_sandbox_allocation_unit.sandbox.allocation_request.id
+  id    = kypo_sandbox_allocation_unit.sandbox.allocation_request.id
   stage = "terraform"
 }
 
@@ -149,7 +149,6 @@ resource "local_file" "terraform-output" {
 resource "null_resource" "check" {
   triggers = {
     stages = join(", ", kypo_sandbox_allocation_unit.sandbox.allocation_request.stages)
-
   }
 
   lifecycle {
