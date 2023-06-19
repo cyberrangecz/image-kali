@@ -53,22 +53,22 @@ resource "openstack_images_image_v2" "test_image" {
   disk_format      = "raw"
 
   properties = {
-    hw_scsi_model                        = "virtio-scsi"
-    hw_disk_bus                          = "scsi"
-    hw_rng_model                         = "virtio"
-    hw_qemu_guest_agent                  = "yes"
-    os_require_quiesce                   = "yes"
-    os_type                              = var.TYPE
-    os_distro                            = var.DISTRO
-    owner_specified.openstack.version    = var.CI_COMMIT_SHA
-    owner_specified.openstack.gui_access = var.GUI_ACCESS
-    owner_specified.openstack.created_by = "munikypo"
+    hw_scsi_model                          = "virtio-scsi"
+    hw_disk_bus                            = "scsi"
+    hw_rng_model                           = "virtio"
+    hw_qemu_guest_agent                    = "yes"
+    os_require_quiesce                     = "yes"
+    os_type                                = var.TYPE
+    os_distro                              = var.DISTRO
+    "owner_specified.openstack.version"    = var.CI_COMMIT_SHA
+    "owner_specified.openstack.gui_access" = var.GUI_ACCESS
+    "owner_specified.openstack.created_by" = "munikypo"
   }
 }
 
 resource "local_file" "topology" {
   filename = "topology.yml"
-  content = replace(file("topology.yml"), "IMAGE_NAME", "${var.NAME}-${var.CI_COMMIT_SHA}")
+  content  = replace(file("topology.yml"), "IMAGE_NAME", openstack_images_image_v2.test_image.name)
 }
 
 resource "gitlab_branch" "gitlab_branch" {
@@ -84,7 +84,7 @@ resource "null_resource" "git_commit" {
       git fetch
       git switch ${gitlab_branch.gitlab_branch.name}
       git add topology.yml
-      git commit -m "Replace IMAGE_NAME"
+      git commit -m "Replace IMAGE_NAME [skip ci]"
       git push https://root:${var.ACCESS_TOKEN}@${var.CI_SERVER_HOST}/${var.CI_PROJECT_PATH}.git ${gitlab_branch.gitlab_branch.name}
     EOT
   }
@@ -144,4 +144,18 @@ resource "local_file" "networking-output" {
 resource "local_file" "terraform-output" {
   content  = data.kypo_sandbox_request_output.terraform-output.result
   filename = "terraform.txt"
+}
+
+resource "null_resource" "check" {
+  triggers = {
+    stages = join(",", kypo_sandbox_allocation_unit.sandbox.allocation_request.stages)
+
+  }
+
+  lifecycle {
+    postcondition {
+      condition     = join(",", kypo_sandbox_allocation_unit.sandbox.allocation_request.stages) == "FINISHED, FINISHED, FINISHED"
+      error_message = "Allocation has finished with errors"
+    }
+  }
 }
