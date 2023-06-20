@@ -67,7 +67,7 @@ resource "openstack_images_image_v2" "test_image" {
 
   lifecycle {
     replace_triggered_by = [
-      openstack_images_image_v2.test_image.name
+      gitlab_branch.gitlab_branch
     ]
   }
 }
