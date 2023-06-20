@@ -64,6 +64,12 @@ resource "openstack_images_image_v2" "test_image" {
     "owner_specified.openstack.gui_access" = var.GUI_ACCESS
     "owner_specified.openstack.created_by" = "munikypo"
   }
+
+  lifecycle {
+    replace_triggered_by = [
+      openstack_images_image_v2.test_image.name
+    ]
+  }
 }
 
 resource "local_file" "topology" {
@@ -84,11 +90,11 @@ resource "null_resource" "git_commit" {
       git fetch
       git switch ${gitlab_branch.gitlab_branch.name}
       git add topology.yml
-      git commit -m "Replace IMAGE_NAME [skip ci]"
+      git commit -m "Replace IMAGE_NAME"
       git push https://root:${var.ACCESS_TOKEN}@${var.CI_SERVER_HOST}/${var.CI_PROJECT_PATH}.git ${gitlab_branch.gitlab_branch.name}
     EOT
   }
-  
+
   triggers = {
     topology      = local_file.topology.content_sha256
     gitlab_branch = gitlab_branch.gitlab_branch.name
