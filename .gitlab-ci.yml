@@ -33,6 +33,10 @@ test-qemu:
     - gitlab-terraform plan
     - gitlab-terraform apply
   resource_group: ${TF_STATE_NAME}
+  environment:
+    name: $TF_STATE_NAME
+    on_stop: test-qemu-destroy
+    auto_stop_in: 1 week
   cache:
     key: "${TF_ROOT}"
     paths:
@@ -42,3 +46,17 @@ test-qemu:
       - ${TF_ROOT}/user-ansible.txt
       - ${TF_ROOT}/networking-ansible.txt
       - ${TF_ROOT}/terraform.txt
+
+test-qemu-destroy:
+  stage: test
+  script:
+    - gitlab-terraform destroy
+  resource_group: ${TF_STATE_NAME}
+  environment:
+    name: $TF_STATE_NAME
+    action: stop
+  cache:
+    key: "${TF_ROOT}"
+    paths:
+      - ${TF_ROOT}/.terraform/
+  when: manual
