@@ -1,7 +1,6 @@
 terraform {
   backend "http" {
   }
-
   required_providers {
     kypo = {
       source  = "vydrazde/kypo"
@@ -19,7 +18,7 @@ terraform {
 }
 
 provider "kypo" {
-  endpoint  = "https://images.crp.kypo.muni.cz"
+  endpoint  = local.endpoint
   client_id = "bzhwmbxgyxALbAdMjYOgpolQzkiQHGwWRXxm"
 }
 
@@ -45,6 +44,12 @@ variable "GUI_ACCESS" {}
 variable "ACCESS_TOKEN" {
   sensitive = true
 }
+
+locals {
+  endpoint = "https://images.crp.kypo.muni.cz"
+  pool_url = "${local.endpoint}/pool/${module.sandbox.pool_id}"
+}
+
 
 resource "openstack_images_image_v2" "test_image" {
   name             = "${var.NAME}-${var.CI_COMMIT_SHA}"
@@ -101,66 +106,23 @@ resource "null_resource" "git_commit" {
   }
 }
 
-resource "kypo_sandbox_definition" "definition" {
-  url = replace(var.CI_PROJECT_URL, "/https://([^/]+)/(.+)/", "git@$1:$2.git")
-  rev = gitlab_branch.gitlab_branch.name
+module "sandbox" {
+  source      = "vydrazde/sandbox/kypo"
+  project_url = var.CI_PROJECT_URL
+  rev         = var.CI_COMMIT_SHA
 
   depends_on = [
     openstack_images_image_v2.test_image,
     null_resource.git_commit
   ]
+
 }
 
-resource "kypo_sandbox_pool" "pool" {
-  definition = {
-    id = kypo_sandbox_definition.definition.id
-  }
-  max_size = 2
+resource "local_file" "pool_url" {
+  filename = "vars.env"
+  content  = "POOL_URL=${local.pool_url}"
 }
 
-resource "kypo_sandbox_allocation_unit" "sandbox" {
-  pool_id                       = kypo_sandbox_pool.pool.id
-  warning_on_allocation_failure = true
-}
-
-data "kypo_sandbox_request_output" "user-output" {
-  id = kypo_sandbox_allocation_unit.sandbox.allocation_request.id
-}
-
-data "kypo_sandbox_request_output" "networking-output" {
-  id    = kypo_sandbox_allocation_unit.sandbox.allocation_request.id
-  stage = "networking-ansible"
-}
-
-data "kypo_sandbox_request_output" "terraform-output" {
-  id    = kypo_sandbox_allocation_unit.sandbox.allocation_request.id
-  stage = "terraform"
-}
-
-resource "local_file" "user-output" {
-  content  = data.kypo_sandbox_request_output.user-output.result
-  filename = "user-ansible.txt"
-}
-
-resource "local_file" "networking-output" {
-  content  = data.kypo_sandbox_request_output.networking-output.result
-  filename = "networking-ansible.txt"
-}
-
-resource "local_file" "terraform-output" {
-  content  = data.kypo_sandbox_request_output.terraform-output.result
-  filename = "terraform.txt"
-}
-
-resource "null_resource" "check" {
-  triggers = {
-    stages = join(", ", kypo_sandbox_allocation_unit.sandbox.allocation_request.stages)
-  }
-
-  lifecycle {
-    postcondition {
-      condition     = join(", ", kypo_sandbox_allocation_unit.sandbox.allocation_request.stages) == "FINISHED, FINISHED, FINISHED"
-      error_message = "Allocation has finished with errors"
-    }
-  }
+output "pool_url" {
+  value = local.pool_url
 }
