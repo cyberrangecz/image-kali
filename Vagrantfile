@@ -4,7 +4,7 @@
 Vagrant.configure("2") do |config|
 
   config.vm.define "image-test" do |device|
-    device.vm.box = "munikypo/kali"
+    device.vm.box = "mybox"
     device.vm.box_check_update = false
   end
 
