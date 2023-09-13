@@ -1,5 +1,5 @@
 - name: Hello world
-  hosts: all
+  hosts: image-test
   gather_facts: no
   tasks:
     - name: Wait for connection

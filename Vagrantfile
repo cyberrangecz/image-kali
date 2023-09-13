@@ -3,8 +3,10 @@
 
 Vagrant.configure("2") do |config|
 
-  config.vm.box = "mybox"
-  config.vm.box_check_update = false
+  config.vm.define "image-test" do |device|
+    device.vm.box = "mybox"
+    device.vm.box_check_update = false
+  end
 
   config.vm.provider "virtualbox" do |vb|
     vb.gui = false
@@ -12,7 +14,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provision :ansible do |ansible|
-    ansible.playbook = "playbook.yml"
+    ansible.playbook = "provisioning/playbook.yml"
     ansible.verbose = true
     ansible.extra_vars = {
       ansible_python_interpreter: "/usr/bin/python3",
