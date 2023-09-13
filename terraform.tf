@@ -4,15 +4,12 @@ terraform {
   required_providers {
     kypo = {
       source  = "vydrazde/kypo"
-      version = ">= 0.1.0"
     }
     openstack = {
       source  = "terraform-provider-openstack/openstack"
-      version = "~> 1.48.0"
     }
     gitlab = {
       source  = "gitlabhq/gitlab"
-      version = "16.0.3"
     }
   }
 }
