@@ -1,5 +1,10 @@
 # Changelog
 
+## [qemu-0.3.0], [vbox-0.3.0] - 2024-01-30
+### Changed
+- Kali version 2023.4
+- VBox: GuestAdditions 6.1.48
+
 ## [qemu-0.2.0], [vbox-0.2.0] - 2023-06-09
 ### Added
 - A build for Vagrant
@@ -29,3 +34,5 @@
 [qemu-0.1.2]: https://gitlab.ics.muni.cz/muni-kypo-images/kali/-/tree/qemu-0.1.2
 [vbox-0.2.0]: https://gitlab.ics.muni.cz/muni-kypo-images/kali/-/tree/vbox-0.2.0
 [qemu-0.2.0]: https://gitlab.ics.muni.cz/muni-kypo-images/kali/-/tree/qemu-0.2.0
+[vbox-0.3.0]: https://gitlab.ics.muni.cz/muni-kypo-images/kali/-/tree/vbox-0.3.0
+[qemu-0.3.0]: https://gitlab.ics.muni.cz/muni-kypo-images/kali/-/tree/qemu-0.3.0
