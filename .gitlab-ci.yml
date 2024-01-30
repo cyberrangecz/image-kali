@@ -9,3 +9,9 @@ variables:
   TYPE: "linux"
   DISTRO: "debian"
   GUI_ACCESS: "true"
+
+.build:
+  before_script:
+    - packer plugins install github.com/hashicorp/qemu
+    - packer plugins install github.com/hashicorp/virtualbox
+    - packer plugins install github.com/hashicorp/vagrant
