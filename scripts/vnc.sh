@@ -56,7 +56,7 @@ sudo systemctl restart lightdm.service
 sudo tee -a /etc/polkit-1/localauthority.conf.d/45-allow-colord.pkla << EOF
 [Allow Colord all Users]
 Identity=unix-user:*
-Action=org.freedesktop.color-manager.create-device;org.freedesktop.color-manager.create-profile;org.freedesktop.color-manager.delete-device;org.freedesktop.#color-manager.delete-profile;org.freedesktop.color-manager.modify-device;org.freedesktop.color-manager.modify-profile
+Action=org.freedesktop.color-manager.create-device;org.freedesktop.color-manager.create-profile;org.freedesktop.color-manager.delete-device;org.freedesktop.color-manager.delete-profile;org.freedesktop.color-manager.modify-device;org.freedesktop.color-manager.modify-profile
 ResultAny=no
 ResultInactive=no
 ResultActive=yes
