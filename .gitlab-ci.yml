@@ -9,3 +9,18 @@ variables:
   TYPE: "linux"
   DISTRO: "debian"
   GUI_ACCESS: "true"
+
+.build:
+  before_script:
+    - packer init .
+
+build-qemu:
+  script:
+  - packer build -only=qemu.qemu .
+  - gitlab-tofu destroy
+  - gitlab-tofu plan -target=module.topology.openstack_images_image_v2.test_image
+  - gitlab-tofu apply
+
+build-vbox:
+  script:
+  - packer build -only=virtualbox-iso.vbox .
