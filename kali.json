@@ -154,7 +154,7 @@
     "variables": {
         "boot_wait": "10s",
         "cpus": "4",
-        "disk_size": "16384",
+        "disk_size": "20480",
         "headless": "true",
         "guest_os_type": "Debian_64",
         "http_directory": "http",
