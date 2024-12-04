@@ -13,7 +13,7 @@ sudo cp -f /tmp/cloud.cfg /etc/cloud/cloud.cfg
 sudo rm -rf /etc/cloud/cloud.cfg.d
 
 # enable cloud-init at boot time, disabled by standard Kali network service policy after installation
-sudo systemctl enable cloud-init
+sudo systemctl enable cloud-init-main.service
 sudo systemctl enable cloud-init-local.service
 sudo systemctl enable cloud-final.service
 sudo systemctl enable cloud-config.service
