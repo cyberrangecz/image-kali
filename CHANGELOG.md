@@ -1,5 +1,9 @@
 # Changelog
 
+## [qemu-0.4.0] - 2024-12-05
+### Changed
+- Kali version 2024.3
+
 ## [qemu-0.3.1] - 2024-02-01
 ### Fixed
 - Authentication is required to create a color managed device popup after login
@@ -41,3 +45,4 @@
 [vbox-0.3.0]: https://gitlab.ics.muni.cz/muni-kypo-images/kali/-/tree/vbox-0.3.0
 [qemu-0.3.0]: https://gitlab.ics.muni.cz/muni-kypo-images/kali/-/tree/qemu-0.3.0
 [qemu-0.3.1]: https://gitlab.ics.muni.cz/muni-kypo-images/kali/-/tree/qemu-0.3.1
+[qemu-0.4.0]: https://gitlab.ics.muni.cz/muni-kypo-images/kali/-/tree/qemu-0.4.0
