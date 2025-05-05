@@ -1,5 +1,10 @@
 # Changelog
 
+## [qemu-0.5.0] - 2025-05-05
+### Changed
+- Kali version 2025-1c
+- Uses new Kali apt signing key [blogpost](https://www.kali.org/blog/new-kali-archive-signing-key/)
+
 ## [qemu-0.4.0] - 2024-12-05
 ### Changed
 - Kali version 2024.3
@@ -35,14 +40,15 @@
 ### Fixed
 - Hostname is added on boot to /etc/hosts for qemu
 
-[qemu-0.1.0]: https://gitlab.ics.muni.cz/muni-kypo-images/kali/-/tree/qemu-0.1.0
-[vbox-0.1.0]: https://gitlab.ics.muni.cz/muni-kypo-images/kali/-/tree/vbox-0.1.0
-[qemu-0.1.1]: https://gitlab.ics.muni.cz/muni-kypo-images/kali/-/tree/qemu-0.1.1
-[vbox-0.1.1]: https://gitlab.ics.muni.cz/muni-kypo-images/kali/-/tree/vbox-0.1.1
-[qemu-0.1.2]: https://gitlab.ics.muni.cz/muni-kypo-images/kali/-/tree/qemu-0.1.2
-[vbox-0.2.0]: https://gitlab.ics.muni.cz/muni-kypo-images/kali/-/tree/vbox-0.2.0
-[qemu-0.2.0]: https://gitlab.ics.muni.cz/muni-kypo-images/kali/-/tree/qemu-0.2.0
-[vbox-0.3.0]: https://gitlab.ics.muni.cz/muni-kypo-images/kali/-/tree/vbox-0.3.0
-[qemu-0.3.0]: https://gitlab.ics.muni.cz/muni-kypo-images/kali/-/tree/qemu-0.3.0
-[qemu-0.3.1]: https://gitlab.ics.muni.cz/muni-kypo-images/kali/-/tree/qemu-0.3.1
-[qemu-0.4.0]: https://gitlab.ics.muni.cz/muni-kypo-images/kali/-/tree/qemu-0.4.0
+[qemu-0.1.0]: https://github.com/cyberrangecz/image-kali/releases/tag/qemu-0.1.0
+[vbox-0.1.0]: https://github.com/cyberrangecz/image-kali/releases/tag/vbox-0.1.0
+[qemu-0.1.1]: https://github.com/cyberrangecz/image-kali/releases/tag/qemu-0.1.1
+[vbox-0.1.1]: https://github.com/cyberrangecz/image-kali/releases/tag/vbox-0.1.1
+[qemu-0.1.2]: https://github.com/cyberrangecz/image-kali/releases/tag/qemu-0.1.2
+[vbox-0.2.0]: https://github.com/cyberrangecz/image-kali/releases/tag/vbox-0.2.0
+[qemu-0.2.0]: https://github.com/cyberrangecz/image-kali/releases/tag/qemu-0.2.0
+[vbox-0.3.0]: https://github.com/cyberrangecz/image-kali/releases/tag/vbox-0.3.0
+[qemu-0.3.0]: https://github.com/cyberrangecz/image-kali/releases/tag/qemu-0.3.0
+[qemu-0.3.1]: https://github.com/cyberrangecz/image-kali/releases/tag/qemu-0.3.1
+[qemu-0.4.0]: https://github.com/cyberrangecz/image-kali/releases/tag/qemu-0.4.0
+[qemu-0.5.0]: https://github.com/cyberrangecz/image-kali/releases/tag/qemu-0.5.0
