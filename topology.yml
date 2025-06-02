@@ -7,7 +7,7 @@ hosts:
       mgmt_user: debian
     flavor: standard.small
 
-  - name: kali-0.5.0
+  - name: kali-050
     base_box: 
       image: kali-0.5.0
       mgmt_user: debian
