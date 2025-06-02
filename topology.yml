@@ -26,9 +26,13 @@ networks:
     cidr: 10.0.0.0/24
 
 net_mappings:
-    - host: image-test
+    - host: kali
       network: network
       ip: 10.0.0.10
+
+    - host: kali-050
+      network: network
+      ip: 10.0.0.20
 
 router_mappings:
     - router: router
