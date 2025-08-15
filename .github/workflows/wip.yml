@@ -19,7 +19,8 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
       options: --privileged
-      ports: [5900]
+      ports:
+        - 5900:5900
     steps:
       - uses: actions/checkout@v4
       - name: Install packer qemu plugin
