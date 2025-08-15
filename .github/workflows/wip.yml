@@ -18,7 +18,7 @@ jobs:
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-      options: --privileged
+#      options: --privileged
       ports:
         - 5900:5900
     steps:
@@ -34,7 +34,7 @@ jobs:
           openstack image create --file target-qemu/* --property hw_scsi_model=virtio-scsi --property hw_disk_bus=scsi
           --property hw_rng_model=virtio --property hw_qemu_guest_agent=yes --property os_require_quiesce=yes
           --property os_type=linux --property os_distro=debian --property owner_specified.openstack.version=$SHA
-          --property owner_specified.openstack.gui_access=true --property owner_specified.openstack.custom=true --public kali-$SHA
+          --property owner_specified.openstack.gui_access=true --property owner_specified.openstack.custom=true --public --insecure kali-$SHA
         env:
           OS_APPLICATION_CREDENTIAL_ID: ${{ secrets.IMAGES_OS_APPLICATION_CREDENTIAL_ID }}
           OS_APPLICATION_CREDENTIAL_SECRET: ${{ secrets.IMAGES_OS_APPLICATION_CREDENTIAL_SECRET }}
