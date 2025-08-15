@@ -24,7 +24,7 @@
             "boot_key_interval": "10ms",
             "disk_interface": "virtio-scsi",
             "disk_size": "{{ user `disk_size` }}",
-            "format": "raw",
+            "format": "qcow2",
             "headless": "{{user `headless`}}",
             "http_directory": "{{user `http_directory`}}",
             "http_port_max": "{{user `http_port_max`}}",
@@ -54,87 +54,18 @@
             "vnc_bind_address": "{{user `vnc_vrdp_bind_address`}}",
             "vnc_port_min": "{{user `vnc_vrdp_port`}}",
             "vnc_port_max": "{{user `vnc_vrdp_port`}}"
-        },
-        {
-            "boot_command": [
-                "<esc><wait>",
-                "install ",
-                " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
-                "debian-installer=en_US.UTF-8 ",
-                "auto ",
-                "locale=en_US.UTF-8 ",
-                "kbd-chooser/method=us ",
-                "keyboard-configuration/xkb-keymap=us ",
-                "netcfg/get_hostname=kali ",
-                "netcfg/get_domain=kali ",
-                "fb=false ",
-                "debconf/frontend=noninteractive ",
-                "console-setup/ask_detect=false ",
-                "console-keymaps-at/keymap=us ",
-                "grub-installer/bootdev=/dev/sda",
-                "<enter><wait>"
-            ],
-            "boot_wait": "{{user `boot_wait`}}",
-            "disk_size": "{{ user `disk_size` }}",
-            "guest_os_type": "{{ user `guest_os_type` }}",
-            "headless": "{{user `headless`}}",
-            "http_directory": "{{user `http_directory`}}",
-            "http_port_max": "{{user `http_port_max`}}",
-            "http_port_min": "{{user `http_port_min`}}",
-            "iso_checksum": "{{user `iso_checksum`}}",
-            "iso_url": "{{user `iso_url`}}",
-            "name": "vbox",
-            "vboxmanage": [
-                [
-                    "modifyvm",
-                    "{{.Name}}",
-                    "--memory",
-                    "{{ user `memory_size` }}"
-                ],
-                [
-                    "modifyvm",
-                    "{{.Name}}",
-                    "--cpus",
-                    "{{ user `cpus` }}"
-                ]
-            ],
-            "shutdown_command": "echo 'vagrant' | {{user `shutdown_command`}}",
-            "ssh_password": "{{user `ssh_password`}}",
-            "ssh_port": "{{user `ssh_port`}}",
-            "ssh_username": "{{user `ssh_username`}}",
-            "ssh_wait_timeout": "{{user `ssh_wait_timeout`}}",
-            "type": "virtualbox-iso",
-            "vm_name": "{{user `vm_name`}}",
-            "vrdp_bind_address": "{{user `vnc_vrdp_bind_address`}}",
-            "vrdp_port_min": "{{user `vnc_vrdp_port`}}",
-            "vrdp_port_max": "{{user `vnc_vrdp_port`}}"
-    	}
+        }
     ],
     "provisioners": [
         {
   	    "type": "file",
   	    "source": "cloud.cfg",
 	    "destination": "/tmp/cloud.cfg"
-	},
+        },
         {
             "scripts": [
                 "scripts/packages.sh",
-                "scripts/fixesQEMU.sh"
-            ],
-            "type": "shell",
-            "only": ["qemu"]
-        },
-        {
-            "scripts": [
-                "scripts/addVagrantUser.sh",
-                "scripts/guestAdditions.sh",
-                "scripts/fixesVBox.sh"
-            ],
-            "type": "shell",
-            "only": ["vbox"]
-        },
-        {
-            "scripts": [
+                "scripts/fixesQEMU.sh",
                 "scripts/addKaliUser.sh",
                 "scripts/fixes.sh",
                 "scripts/vnc.sh",
@@ -142,14 +73,6 @@
             ],
             "type": "shell"
         }
-    ],
-    "post-processors": [
-       {
-  	    "type": "vagrant",
-  	    "output" : "target-vbox/kali.box",
-  	    "vagrantfile_template": "Vagrantfile-template",
-  	    "only": ["vbox"]
-       }
     ],
     "variables": {
         "boot_wait": "10s",
