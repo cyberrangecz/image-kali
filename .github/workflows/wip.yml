@@ -18,7 +18,7 @@ jobs:
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-#      options: --privileged
+      options: --privileged
       ports:
         - 5900:5900
     steps:
