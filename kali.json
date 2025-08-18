@@ -92,7 +92,7 @@
         "ssh_username": "root",
         "ssh_wait_timeout": "90m",
         "vm_name": "kali",
-        "vnc_vrdp_bind_address": "127.0.0.1",
+        "vnc_vrdp_bind_address": "0.0.0.0",
         "vnc_vrdp_port": "5900"
     }
 }
