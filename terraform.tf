@@ -39,8 +39,7 @@ variable "IMAGE_LOCAL_PATH" {
 }
 
 module "topology" {
-  source           = "https://github.com/cyberrangecz/terraform-crczp-image-testing-topology.git"
-  version          = "qcow2"
+  source           = "git::https://github.com/cyberrangecz/terraform-crczp-image-testing-topology.git?ref=de736b59f342472f4a967b68e3014f667f53c85e"
   project_url      = var.PROJECT_URL
   rev              = var.REV
   image_name       = var.NAME

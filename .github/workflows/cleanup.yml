@@ -1,6 +1,7 @@
 on:
   delete:
     branches:
+      - '!citest-*'
   workflow_dispatch:
 
 jobs:
