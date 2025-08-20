@@ -1,0 +1,12 @@
+on:
+  push:
+    branches:
+  workflow_dispatch:
+
+jobs:
+  test:
+    uses: cybersecurityhubcz/ci-images/test.yml@github-actions
+    with:
+      packer_only: qemu
+      packer_filename: kali.json
+    secrets: inherit

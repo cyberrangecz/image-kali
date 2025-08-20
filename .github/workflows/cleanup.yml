@@ -1,0 +1,9 @@
+on:
+  delete:
+    branches:
+  workflow_dispatch:
+
+jobs:
+  cleanup:
+    uses: cybersecurityhubcz/ci-images/cleanup.yml@github-actions
+    secrets: inherit

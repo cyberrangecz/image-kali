@@ -1,0 +1,9 @@
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  release:
+    uses: cybersecurityhubcz/ci-images/release.yml@github-actions
+    secrets: inherit
