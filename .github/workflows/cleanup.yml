@@ -5,5 +5,5 @@ on:
 
 jobs:
   cleanup:
-    uses: cybersecurityhubcz/ci-images/cleanup.yml@github-actions
+    uses: cybersecurityhubcz/ci-images/.github/workflows/cleanup.yml@github-actions
     secrets: inherit

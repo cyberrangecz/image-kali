@@ -5,7 +5,7 @@ on:
 
 jobs:
   test:
-    uses: cybersecurityhubcz/ci-images/test.yml@github-actions
+    uses: cybersecurityhubcz/ci-images/.github/workflows/test.yml@github-actions
     with:
       packer_only: qemu
       packer_filename: kali.json
