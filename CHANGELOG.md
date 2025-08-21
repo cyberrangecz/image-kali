@@ -1,5 +1,7 @@
 # Changelog
 
+**See releases for newer versions**
+
 ## [qemu-0.5.0] - 2025-05-05
 ### Changed
 - Kali version 2025-1c
