@@ -5,5 +5,5 @@ on:
 
 jobs:
   release:
-    uses: cyberrangecz/ci-images/.github/workflows/release.yml
+    uses: cyberrangecz/ci-images/.github/workflows/release.yml@master
     secrets: inherit
