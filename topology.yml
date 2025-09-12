@@ -3,7 +3,7 @@ name: kali-testing-topology
 hosts:
   - name: image-test
     base_box: 
-      image: IMAGE_NAME
+      image: kali-075c717
       mgmt_user: debian
     flavor: standard.small
 
