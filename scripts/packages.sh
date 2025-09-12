@@ -17,3 +17,4 @@ sudo systemctl enable cloud-init-main.service
 sudo systemctl enable cloud-init-local.service
 sudo systemctl enable cloud-final.service
 sudo systemctl enable cloud-config.service
+sudo systemctl enable cloud-init-hotplugd.service
