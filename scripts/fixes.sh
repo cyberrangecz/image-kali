@@ -23,9 +23,11 @@ sudo systemctl enable chrony
 sudo systemctl start chrony
 
 # never blank, put to sleep or switch off monitor
-# for current user
-xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/dpms-enabled -s false
-xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/blank-on-ac -s 0
+# for root and kali
+sudo xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/dpms-enabled -s false
+sudo xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/blank-on-ac -s 0
+sudo su kali -c "xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/dpms-enabled -s false"
+sudo su kali -c "xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/blank-on-ac -s 0"
 
 # for all new users
 sudo apt-get -y install xmlstarlet
@@ -37,3 +39,16 @@ sudo xmlstarlet ed --inplace -s '/channel/property' -t elem -n property /etc/xdg
 sudo xmlstarlet ed --inplace -s '/channel/property/property[last()]' -t attr -n name -v blank-on-ac /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
 sudo xmlstarlet ed --inplace -s '/channel/property/property[last()]' -t attr -n type -v int /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
 sudo xmlstarlet ed --inplace -s '/channel/property/property[last()]' -t attr -n value -v 0 /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
+
+# Fix cloud-init
+sudo mkdir -p /etc/systemd/system/cloud-init-main.service.d
+sudo tee /etc/systemd/system/cloud-init-main.service.d/override.conf << EOF
+[Unit]
+Wants=network-pre.target
+Before=sysinit.target
+
+[Install]
+WantedBy=network-pre.target
+EOF
+
+sudo systemctl daemon-reload
