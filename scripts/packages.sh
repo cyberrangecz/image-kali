@@ -12,9 +12,12 @@ sudo cp -f /tmp/cloud.cfg /etc/cloud/cloud.cfg
 # delete default configuration
 sudo rm -rf /etc/cloud/cloud.cfg.d
 
-# enable cloud-init at boot time, disabled by standard Kali network service policy after installation
-sudo systemctl enable cloud-init-main.service
-sudo systemctl enable cloud-init-local.service
-sudo systemctl enable cloud-final.service
-sudo systemctl enable cloud-config.service
-sudo systemctl enable cloud-init-hotplugd.service
+# force enable cloud-init.target
+sudo mkdir -p /etc/systemd/system/cloud-init.target.d
+sudo tee /etc/systemd/system/cloud-init.target.d/override.conf << EOF
+[Install]
+WantedBy=multi-user.target
+EOF
+
+sudo systemctl daemon-reload
+sudo systemctl enable cloud-init.target
