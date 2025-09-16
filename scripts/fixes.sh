@@ -23,9 +23,11 @@ sudo systemctl enable chrony
 sudo systemctl start chrony
 
 # never blank, put to sleep or switch off monitor
-# for current user
-xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/dpms-enabled -s false
-xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/blank-on-ac -s 0
+# for root and kali
+sudo xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/dpms-enabled -s false
+sudo xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/blank-on-ac -s 0
+sudo su kali -c "xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/dpms-enabled -s false"
+sudo su kali -c "xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/blank-on-ac -s 0"
 
 # for all new users
 sudo apt-get -y install xmlstarlet

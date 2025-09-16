@@ -11,7 +11,7 @@ on:
 
 jobs:
   test:
-    if: ${{ github.event.pull_request.merged == true || github.event_name == 'push' }}
+    if: ${{ github.event.pull_request.merged == true || github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}
     uses: cyberrangecz/ci-images/.github/workflows/test.yml@master
     with:
       packer_only: qemu
