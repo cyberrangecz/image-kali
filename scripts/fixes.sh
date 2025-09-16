@@ -41,14 +41,11 @@ sudo xmlstarlet ed --inplace -s '/channel/property/property[last()]' -t attr -n 
 sudo xmlstarlet ed --inplace -s '/channel/property/property[last()]' -t attr -n value -v 0 /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
 
 # Fix cloud-init
-sudo mkdir -p /etc/systemd/system/cloud-init-main.service.d
-sudo tee /etc/systemd/system/cloud-init-main.service.d/override.conf << EOF
-[Unit]
-Wants=network-pre.target
-Before=sysinit.target
-
+sudo mkdir -p /etc/systemd/system/cloud-init.target.d
+sudo tee /etc/systemd/system/cloud-init.target.d/override.conf << EOF
 [Install]
-WantedBy=network-pre.target
+WantedBy=multi-user.target
 EOF
 
 sudo systemctl daemon-reload
+sudo systemctl enable cloud-init.target
